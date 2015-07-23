@@ -20,7 +20,6 @@ function isDisabled(v)
   return v._disabled;
 end
 
--- Действие - это двойственное понятие.
 function action(o)
   o.nam = o.nam.."^";
   o.dsc = "{"..o.nam.."}";
@@ -63,9 +62,9 @@ playerdesc = stat {
     pn('Связи: '..pl._connections);
     pn('Дерзость: ' .. pl._boldness);
     pn('Осторожность: ' .. pl._caution);
-    if (game._action ~= nil) then
-      pn("Локация: "..game._action);
-    end
+    -- if (game._action ~= nil) then
+    --  pn("Локация: "..game._action);
+    -- end
   end,
 }
 take('playerdesc');

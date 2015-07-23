@@ -121,6 +121,19 @@ tattoo = action {
   nam = 'Посетить тату-салон Чернильного Ткача'
 }
 
+endgame_link = action {
+  filter = 'game._action == nil and pl._connections > 1',
+  nam = 'Сесть на поезд домой',
+  click = function()
+    walk('endgame');
+  end,
+}
+
+endgame = room {
+  nam = 'Конец игры',
+  dsc = [[Ваше время в этом мрачном городе закончено, и вы уезжаете на старом поезде, всё ещё слишком чужой для того, чтобы остаться.^^]]..txtc('КОНЕЦ'),
+}
+
 turn_back = action {
   nam = '-- Вернуться на площадь --',
   filter = 'game._action ~= nil',
