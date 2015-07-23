@@ -19,6 +19,18 @@ end
 function action(o)
   o.nam = o.nam.."^";
   o.dsc = "{"..o.nam.."}";
+  o.act = function(s)
+    if o.new_filter ~= nil then
+  	  game._action = o.new_filter
+      main.dsc = o._dsc
+    else
+      p(o._dsc);
+    end
+    if (o.click ~= nil and type(o.click) == 'function') then
+      o.click(s);
+    end
+    here():look(); -- нам нужно перерисовать комнату
+  end;
   if o._disabled == nil then
     o._disabled = function()
       if (game._action == nil) then
