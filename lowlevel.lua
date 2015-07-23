@@ -35,7 +35,7 @@ police = action {
 
 thief = action {
   nam = 'Вы засовываете руку в карман и находите там чужую',
-  _disabled = function() if (game._action == "police" and pl._boldness < 5 and not have('cent')) then return false; end; return true; end,
+  filter = 'game._action == "police" and pl._boldness < 5 and not have("cent")',
   new_filter = "thief",
   _dsc = [[Вы засовываете руку в карман и находите там чужую. Вы разворачиваетесь и видите грязного мальчика, который пытается спрятать лицо под дырявой кепкой.]],
 }
@@ -47,7 +47,7 @@ cent = obj {
 
 thief_bold = action {
   nam = 'Побить вора',
-  _disabled = function() if (game._action == "thief") then return false; end; return true; end,
+  filter = 'game._action == "thief"',
   new_filter = "police",
   _dsc = [[Вы перетряхиваете мальчугана на всё, что у него есть. Он отдаёт вам единственную монетку и теряется в тумане.]],
   click = function()
@@ -59,7 +59,7 @@ thief_bold = action {
 
 thief_follow = action {
   nam = 'Отпустить и проследить за ним',
-  _disabled = function() if (game._action == "thief") then return false; end; return true; end,
+  filter = 'game._action == "thief"',
   new_filter = "police",
   _dsc = [[Вы отпускаете мальчугана и осторожно следуете за ним. Он отбегает в сторону, оглядывается, и, не заметив вас в тумане, идёт по переулкам к старому фонтану на Площади Жути.^^
     По пустой улице проносится слабый звон, и мальчик быстро исчезает в одном из домов. Вы подходите к пересохшему фонтану и видите одинокую монетку, которая блестит на дне. Вы поднимаете монетку и осматриваете её. Выглядит интересно. ]],
@@ -72,7 +72,7 @@ thief_follow = action {
 
 eradication_lvl1 = action {
   nam = 'На вас бросается женщина...',
-  _disabled = function() if (game._action == "police" and pl._boldness < 5 and not have('clay_leg')) then return false; end; return true; end,
+  filter = 'game._action == "police" and pl._boldness < 5 and not have("clay_leg")',
   new_filter = "eradication_lvl1_1",
   _dsc = [[ На вас бросается женщина с зарёванным лицом. Мужчина в форме, с которым она до этого разговаривала, облегчённо вздыхает и уходит по своим делам. ^
     -- Пожалуйста! Может, хоть вы мне поможете? Я не могу попасть домой и у меня нет с собой денег, чтобы заплатить Охотникам. Я не могу пробиться через эти грибы!]],
@@ -80,7 +80,7 @@ eradication_lvl1 = action {
 
 eradication_lvl1_1 = action {
   nam = 'Следовать к её дому',
-  _disabled = function() if (game._action == "eradication_lvl1_1") then return false; end; return true; end,
+  filter = 'game._action == "eradication_lvl1_1"',
   new_filter = "eradication_lvl1",
   _dsc = [[ Она живёт к западу от Глиняной Башни, в квартале Улыбающихся Гончаров. Вы медленно пробираетесь по петляющим улочкам и, наконец, выходите к старому домику, перед которым раскинулись высокие коричневые заросли грибов.Она даёт вам белый платок и показывает, как его завязать на лицо. ^^ 
     -- Вы видите? Я не могу пройти к дому, не наглотавшись спор. Я читала, что споры этих грибов превращают людей в.. в глину!]],
@@ -89,7 +89,7 @@ eradication_lvl1_1 = action {
 -- тут можно придумать дополнительные варианты в зависимости от инвентаря
 eradication_lvl1_cautious = action {
   nam = 'Медленно протоптать дорожку',
-  _disabled = function() if (game._action == "eradication_lvl1") then return false; end; return true; end,
+  filter = 'game._action == "eradication_lvl1"',
   new_filter = "police", -- тут мы устанавливаем фильтр, а не проверяем его
   _dsc = [[ Осторожно контролируя вес, вы протаптываете дорожку через заросли грибов. Придётся ходить только в масках, но теперь здесь есть шансы жить.^^
     -- Спасибо! Вот вам за труды. -- Женщина протягивает изогнутый кусок пластилина. -- Говорят, за ноги Пластилиновых Творений дорого платят в музее Сгоревших Свечей. ]],
@@ -101,7 +101,7 @@ eradication_lvl1_cautious = action {
 
 eradication_lvl1_bold = action {
   nam = 'Быстро перепрыгнуть через заросли',
-  _disabled = function() if (game._action == "eradication_lvl1") then return false; end; return true; end,
+  filter = 'game._action == "eradication_lvl1"',
   new_filter = "police",
   click = function()
     bold(1);
@@ -117,13 +117,13 @@ clay_leg = obj {
 }
 
 tattoo = action {
-  _disabled = function() if (pl._connections > 5) then return false end; return true; end,
+  filter = 'pl._connections > 5',
   nam = 'Посетить тату-салон Чернильного Ткача'
 }
 
 turn_back = action {
   nam = '-- Вернуться на площадь --',
-  _disabled = function() if (game._action ~= nil) then return false; end; return true; end,
+  filter = 'game._action ~= nil',
   click = function()
     game._action = nil;
     walk('main');
