@@ -1,5 +1,6 @@
--- Здесь я переделываю диалоги INSTEAD на другую структуру
--- мне нужно, чтобы фразы не автоматически скрывались, а постоянно оставались и скрывались при просмотре комнаты, а не после кликов
+-- Here I make an alternative to INSTEAD dialogs.
+-- I need the phrases not to hide automatically on click.
+-- They need to hide automatically on filter condition - when examining the room, not on click
 
 function isDisabled(v)
   if (type(v) ~= 'table') then return false end;
@@ -71,7 +72,6 @@ option_action = function(self)
 	
 	return ret
 end
-
 
 function option(filter, ask, answ, actfunc)
 	local p = phr (ask, answ, actfunc);
