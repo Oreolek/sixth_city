@@ -60,9 +60,7 @@ function load_mo_file(mo_file)
     local tl,to=peek_long(T),peek_long(T+4) T=T+8
     hash[sub(mo_data,oo+1,oo+ol)]=sub(mo_data,to+1,to+tl)
   end
-  return function(text)
-    return hash[text]
-  end
+  return hash
 end
 
 
@@ -75,7 +73,10 @@ if LANG == translate.source then
     return text;
   end;
 else
-  translate.strings = load_mo_file(LANG..'.mo');
+  translate.strings = load_mo_file('translations/' .. LANG .. '.mo');
+  if translate.strings == nil then
+    error("translation not found")
+  end
   _ = function(text)
     return translate.strings[text];
   end
